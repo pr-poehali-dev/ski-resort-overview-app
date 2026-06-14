@@ -15,6 +15,38 @@ interface Rental {
   icon: string;
 }
 
+interface Webcam {
+  name: string;
+  location: string;
+  url: string;
+  preview: string;
+}
+
+interface Skipass {
+  name: string;
+  price: string;
+  duration: string;
+  includes: string;
+  popular?: boolean;
+}
+
+interface HowToGet {
+  icon: string;
+  type: string;
+  from: string;
+  duration: string;
+  price: string;
+  detail: string;
+}
+
+interface TrailZone {
+  name: string;
+  color: string;
+  bgColor: string;
+  count: number;
+  lengthKm: string;
+}
+
 interface Resort {
   id: string;
   name: string;
@@ -32,6 +64,10 @@ interface Resort {
   description: string;
   excursions: Excursion[];
   rentals: Rental[];
+  trailMap: TrailZone[];
+  webcams: Webcam[];
+  skipasses: Skipass[];
+  howToGet: HowToGet[];
 }
 
 const IMG_ROSA = "https://cdn.poehali.dev/projects/018be92d-2460-4dcc-b0d4-3dbb7a348bfa/files/e772d704-f2d9-4e38-8306-9046215c286e.jpg";
@@ -77,6 +113,28 @@ const RESORTS: Record<string, Resort[]> = {
         { name: "Студия в горном отеле", price: "5 200 ₽/ночь", beds: 1, icon: "Building2" },
         { name: "Премиум-люкс с видом", price: "22 000 ₽/ночь", beds: 3, icon: "Sparkles" },
       ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 18, lengthKm: "23 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 34, lengthKm: "47 км" },
+        { name: "Красные", color: "#F87171", bgColor: "#2B0D0D", count: 31, lengthKm: "41 км" },
+        { name: "Чёрные", color: "#CBD5E1", bgColor: "#1E2433", count: 19, lengthKm: "29 км" },
+      ],
+      webcams: [
+        { name: "Вершина Роза Пик", location: "2320 м", url: "#", preview: IMG_ROSA },
+        { name: "Нижняя станция", location: "560 м", url: "#", preview: IMG_ELBRUS },
+        { name: "Склон Запад", location: "1600 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "3 800 ₽", duration: "1 день", includes: "Все подъёмники 9:00–17:00" },
+        { name: "Недельный", price: "18 500 ₽", duration: "7 дней", includes: "Все подъёмники + приоритетный вход", popular: true },
+        { name: "Утренний", price: "2 200 ₽", duration: "До 13:00", includes: "Все подъёмники 9:00–13:00" },
+        { name: "Сезонный", price: "65 000 ₽", duration: "Весь сезон", includes: "Неограниченный доступ + паркинг" },
+      ],
+      howToGet: [
+        { icon: "Plane", type: "Самолёт", from: "Москва (SVO)", duration: "2 ч 20 мин", price: "от 4 500 ₽", detail: "Аэропорт Сочи + трансфер 50 мин" },
+        { icon: "Train", type: "Поезд", from: "Москва (Казанский)", duration: "24 ч", price: "от 3 200 ₽", detail: "До ст. Адлер, затем трансфер 40 мин" },
+        { icon: "Car", type: "На автомобиле", from: "Краснодар", duration: "3 ч 30 мин", price: "платная трасса", detail: "Трасса А-147, парковка у подъёмника" },
+      ],
     },
     {
       id: "elbrus", name: "Эльбрус", location: "Кабардино-Балкария",
@@ -95,6 +153,25 @@ const RESORTS: Record<string, Resort[]> = {
         { name: "Базовый лагерь (домик)", price: "2 200 ₽/ночь", beds: 1, icon: "Home" },
         { name: "Горный отель Азау", price: "6 500 ₽/ночь", beds: 2, icon: "Building2" },
       ],
+      trailMap: [
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 8, lengthKm: "12 км" },
+        { name: "Красные", color: "#F87171", bgColor: "#2B0D0D", count: 14, lengthKm: "22 км" },
+        { name: "Чёрные", color: "#CBD5E1", bgColor: "#1E2433", count: 13, lengthKm: "19 км" },
+      ],
+      webcams: [
+        { name: "Приют 11 (4130 м)", location: "4130 м", url: "#", preview: IMG_ELBRUS },
+        { name: "Поляна Азау", location: "2350 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "2 500 ₽", duration: "1 день", includes: "Все подъёмники зоны Эльбрус" },
+        { name: "3 дня", price: "6 500 ₽", duration: "3 дня", includes: "Все подъёмники", popular: true },
+        { name: "Сезонный", price: "42 000 ₽", duration: "Весь сезон", includes: "Полный доступ" },
+      ],
+      howToGet: [
+        { icon: "Plane", type: "Самолёт", from: "Москва (VKO)", duration: "2 ч", price: "от 5 200 ₽", detail: "Аэропорт Минеральные Воды, затем 3 ч на авто" },
+        { icon: "Car", type: "На автомобиле", from: "Нальчик", duration: "2 ч 30 мин", price: "бесплатно", detail: "Трасса через Баксанское ущелье" },
+        { icon: "Bus", type: "Автобус", from: "Нальчик (автовокзал)", duration: "3 ч", price: "от 400 ₽", detail: "Прямой рейс до Терскола" },
+      ],
     },
     {
       id: "arkhyz", name: "Архыз", location: "Карачаево-Черкессия",
@@ -110,6 +187,24 @@ const RESORTS: Record<string, Resort[]> = {
       rentals: [
         { name: "Квартира в Романтике", price: "4 500 ₽/ночь", beds: 2, icon: "Home" },
         { name: "Коттедж для семьи", price: "9 000 ₽/ночь", beds: 5, icon: "Home" },
+      ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 22, lengthKm: "18 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 20, lengthKm: "24 км" },
+        { name: "Красные", color: "#F87171", bgColor: "#2B0D0D", count: 16, lengthKm: "21 км" },
+      ],
+      webcams: [
+        { name: "Склон Архыз-1", location: "1900 м", url: "#", preview: IMG_ROSA },
+        { name: "Горная деревня", location: "1450 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "2 200 ₽", duration: "1 день", includes: "Все подъёмники" },
+        { name: "Детский", price: "1 100 ₽", duration: "1 день", includes: "До 12 лет, все трассы", popular: true },
+        { name: "Семейный (2+2)", price: "6 800 ₽", duration: "1 день", includes: "2 взрослых + 2 ребёнка" },
+      ],
+      howToGet: [
+        { icon: "Plane", type: "Самолёт", from: "Москва (VKO)", duration: "2 ч", price: "от 4 800 ₽", detail: "Аэропорт Минводы, затем 2 ч на авто" },
+        { icon: "Car", type: "На автомобиле", from: "Черкесск", duration: "2 ч 20 мин", price: "бесплатно", detail: "Трасса А-155, горная дорога" },
       ],
     },
   ],
@@ -129,6 +224,24 @@ const RESORTS: Record<string, Resort[]> = {
         { name: "Апартаменты в Кировске", price: "3 500 ₽/ночь", beds: 2, icon: "Home" },
         { name: "Горная база с сауной", price: "7 000 ₽/ночь", beds: 4, icon: "Home" },
       ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 6, lengthKm: "8 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 14, lengthKm: "19 км" },
+        { name: "Красные", color: "#F87171", bgColor: "#2B0D0D", count: 15, lengthKm: "23 км" },
+      ],
+      webcams: [
+        { name: "Вершина Айкуайвенчорр", location: "1100 м", url: "#", preview: IMG_SHER },
+        { name: "База Большой Вудъявр", location: "320 м", url: "#", preview: IMG_ELBRUS },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "2 800 ₽", duration: "1 день", includes: "Все подъёмники" },
+        { name: "Многодневный 5 дней", price: "11 000 ₽", duration: "5 дней", includes: "Все подъёмники", popular: true },
+        { name: "Сезонный", price: "38 000 ₽", duration: "Весь сезон", includes: "Окт — Май, полный доступ" },
+      ],
+      howToGet: [
+        { icon: "Plane", type: "Самолёт", from: "Москва (SVO)", duration: "2 ч 10 мин", price: "от 5 500 ₽", detail: "Аэропорт Хибины (Апатиты), 30 мин до курорта" },
+        { icon: "Train", type: "Поезд", from: "Москва (Ленинградский)", duration: "28 ч", price: "от 2 800 ₽", detail: "До ст. Апатиты, затем 30 мин маршрутка" },
+      ],
     },
     {
       id: "pahta", name: "Пахта", location: "Карелия",
@@ -143,6 +256,21 @@ const RESORTS: Record<string, Resort[]> = {
       rentals: [
         { name: "Коттедж у леса", price: "5 000 ₽/ночь", beds: 4, icon: "Home" },
         { name: "Гостиница на курорте", price: "2 800 ₽/ночь", beds: 2, icon: "Building2" },
+      ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 5, lengthKm: "4 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 7, lengthKm: "8 км" },
+      ],
+      webcams: [
+        { name: "Главный склон", location: "320 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "1 600 ₽", duration: "1 день", includes: "Все подъёмники", popular: true },
+        { name: "Выходного дня", price: "2 800 ₽", duration: "2 дня", includes: "Пт–Вс" },
+      ],
+      howToGet: [
+        { icon: "Car", type: "На автомобиле", from: "Санкт-Петербург", duration: "5 ч", price: "бесплатно", detail: "Трасса Е-105, поворот на Пряжу" },
+        { icon: "Train", type: "Поезд", from: "СПб (Ладожский)", duration: "5 ч 30 мин", price: "от 900 ₽", detail: "До Петрозаводска, затем такси 1 ч" },
       ],
     },
   ],
@@ -163,6 +291,26 @@ const RESORTS: Record<string, Resort[]> = {
         { name: "Хостел у трассы", price: "1 200 ₽/ночь", beds: 1, icon: "Building2" },
         { name: "Гостевой дом с баней", price: "7 000 ₽/ночь", beds: 4, icon: "Home" },
       ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 8, lengthKm: "10 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 16, lengthKm: "22 км" },
+        { name: "Красные", color: "#F87171", bgColor: "#2B0D0D", count: 15, lengthKm: "20 км" },
+      ],
+      webcams: [
+        { name: "Вершина горы Зелёная", location: "1270 м", url: "#", preview: IMG_SHER },
+        { name: "Посёлок Шерегеш", location: "540 м", url: "#", preview: IMG_ROSA },
+        { name: "Трасса Б", location: "900 м", url: "#", preview: IMG_ELBRUS },
+      ],
+      skipasses: [
+        { name: "Дневной будни", price: "2 400 ₽", duration: "Пн–Пт", includes: "Все подъёмники 9:00–18:00" },
+        { name: "Дневной выходные", price: "2 900 ₽", duration: "Сб–Вс", includes: "Все подъёмники", popular: true },
+        { name: "Сезонный", price: "45 000 ₽", duration: "Нояб — Май", includes: "Полный доступ + парковка" },
+      ],
+      howToGet: [
+        { icon: "Plane", type: "Самолёт", from: "Москва (DME)", duration: "4 ч", price: "от 6 500 ₽", detail: "Аэропорт Новокузнецк, 1.5 ч до курорта" },
+        { icon: "Train", type: "Поезд", from: "Москва (Казанский)", duration: "48 ч", price: "от 4 200 ₽", detail: "До Новокузнецка, маршрутка 1.5 ч" },
+        { icon: "Car", type: "На автомобиле", from: "Новокузнецк", duration: "1 ч 30 мин", price: "бесплатно", detail: "Трасса Р-255, хорошее покрытие" },
+      ],
     },
   ],
   moscow: [
@@ -181,6 +329,24 @@ const RESORTS: Record<string, Resort[]> = {
         { name: "Апартаменты на базе", price: "4 500 ₽/ночь", beds: 2, icon: "Building2" },
         { name: "Коттедж в посёлке", price: "8 000 ₽/ночь", beds: 4, icon: "Home" },
       ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 5, lengthKm: "3 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 6, lengthKm: "5 км" },
+        { name: "Красные", color: "#F87171", bgColor: "#2B0D0D", count: 3, lengthKm: "4 км" },
+      ],
+      webcams: [
+        { name: "Главный склон (ночью)", location: "165 м", url: "#", preview: IMG_ROSA },
+        { name: "Трасса 3 (освещение)", location: "120 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "1 800 ₽", duration: "8:00–17:00", includes: "Все подъёмники" },
+        { name: "Вечерний", price: "1 200 ₽", duration: "17:00–22:00", includes: "Освещённые трассы", popular: true },
+        { name: "Суточный", price: "2 500 ₽", duration: "8:00–22:00", includes: "Все подъёмники день+вечер" },
+      ],
+      howToGet: [
+        { icon: "Car", type: "На автомобиле", from: "Москва (МКАД)", duration: "1 ч 20 мин", price: "платная трасса", detail: "Дмитровское шоссе, поворот на Якоть" },
+        { icon: "Train", type: "Электричка", from: "Савёловский вокзал", duration: "1 ч 10 мин", price: "от 200 ₽", detail: "До ст. Дмитров, маршрутка 20 мин" },
+      ],
     },
     {
       id: "sorochany", name: "Сорочаны", location: "Клинский р-н",
@@ -195,6 +361,21 @@ const RESORTS: Record<string, Resort[]> = {
       rentals: [
         { name: "Номер в гостинице курорта", price: "3 800 ₽/ночь", beds: 2, icon: "Building2" },
         { name: "Дом в СНТ рядом", price: "6 500 ₽/ночь", beds: 5, icon: "Home" },
+      ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 4, lengthKm: "2.5 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 5, lengthKm: "4 км" },
+      ],
+      webcams: [
+        { name: "Склон 1", location: "140 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "1 500 ₽", duration: "1 день", includes: "Все подъёмники", popular: true },
+        { name: "Семейный", price: "4 200 ₽", duration: "1 день", includes: "2+2 на все трассы" },
+      ],
+      howToGet: [
+        { icon: "Car", type: "На автомобиле", from: "Москва (МКАД)", duration: "1 ч 40 мин", price: "платная трасса", detail: "Ленинградское шоссе, М-10, поворот Клин" },
+        { icon: "Train", type: "Электричка", from: "Ленинградский вокзал", duration: "1 ч 20 мин", price: "от 180 ₽", detail: "До Клина, такси 15 мин" },
       ],
     },
   ],
@@ -214,6 +395,24 @@ const RESORTS: Record<string, Resort[]> = {
         { name: "Номер в отеле Игора", price: "7 500 ₽/ночь", beds: 2, icon: "Building2" },
         { name: "Шале у склона", price: "14 000 ₽/ночь", beds: 4, icon: "Home" },
       ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 4, lengthKm: "3 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 5, lengthKm: "5 км" },
+        { name: "Красные", color: "#F87171", bgColor: "#2B0D0D", count: 3, lengthKm: "4 км" },
+      ],
+      webcams: [
+        { name: "Главный склон Игора", location: "100 м", url: "#", preview: IMG_ROSA },
+        { name: "Каток и парк", location: "40 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "2 000 ₽", duration: "1 день", includes: "Все подъёмники", popular: true },
+        { name: "Вечерний", price: "1 300 ₽", duration: "16:00–22:00", includes: "Освещённые трассы" },
+        { name: "Выходного дня", price: "3 500 ₽", duration: "Сб–Вс", includes: "2 дня + СПА-зона" },
+      ],
+      howToGet: [
+        { icon: "Car", type: "На автомобиле", from: "Санкт-Петербург", duration: "1 ч 10 мин", price: "бесплатно", detail: "Трасса Е-18 (Скандинавия), выезд Першино" },
+        { icon: "Bus", type: "Автобус-шатл", from: "м. Парнас, СПб", duration: "1 ч 20 мин", price: "от 300 ₽", detail: "Расписание шатлов на сайте курорта" },
+      ],
     },
     {
       id: "tuutari", name: "Туутари-парк", location: "Ломоносовский р-н",
@@ -228,6 +427,20 @@ const RESORTS: Record<string, Resort[]> = {
       rentals: [
         { name: "Финский коттедж", price: "9 000 ₽/ночь", beds: 6, icon: "Home" },
         { name: "Номер в гостинице", price: "4 500 ₽/ночь", beds: 2, icon: "Building2" },
+      ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 3, lengthKm: "2 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 5, lengthKm: "4 км" },
+      ],
+      webcams: [
+        { name: "Финская сауна и склон", location: "80 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "1 700 ₽", duration: "1 день", includes: "Все подъёмники", popular: true },
+        { name: "Семейный", price: "4 500 ₽", duration: "1 день", includes: "2 взр. + 2 дет." },
+      ],
+      howToGet: [
+        { icon: "Car", type: "На автомобиле", from: "Санкт-Петербург", duration: "45 мин", price: "бесплатно", detail: "Петергофское шоссе, поворот на Лопухинку" },
       ],
     },
   ],
@@ -246,6 +459,23 @@ const RESORTS: Record<string, Resort[]> = {
         { name: "Номер в санатории", price: "2 800 ₽/ночь", beds: 2, icon: "Building2" },
         { name: "Коттедж на базе", price: "5 500 ₽/ночь", beds: 4, icon: "Home" },
       ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 6, lengthKm: "5 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 8, lengthKm: "9 км" },
+        { name: "Красные", color: "#F87171", bgColor: "#2B0D0D", count: 4, lengthKm: "6 км" },
+      ],
+      webcams: [
+        { name: "Склон Абзаково", location: "742 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "1 500 ₽", duration: "1 день", includes: "Все подъёмники", popular: true },
+        { name: "Ночной", price: "900 ₽", duration: "17:00–22:00", includes: "Освещённые трассы" },
+        { name: "Недельный", price: "7 500 ₽", duration: "7 дней", includes: "Все подъёмники" },
+      ],
+      howToGet: [
+        { icon: "Car", type: "На автомобиле", from: "Уфа", duration: "2 ч 30 мин", price: "бесплатно", detail: "Трасса М-5 Урал, поворот на Магнитогорск" },
+        { icon: "Train", type: "Поезд", from: "Уфа (ж/д вокзал)", duration: "4 ч", price: "от 600 ₽", detail: "До ст. Белорецк, такси 40 мин" },
+      ],
     },
   ],
   fareast: [
@@ -263,12 +493,30 @@ const RESORTS: Record<string, Resort[]> = {
         { name: "Апартаменты в Ю-Сахалинске", price: "4 000 ₽/ночь", beds: 2, icon: "Home" },
         { name: "Отель у склона", price: "6 500 ₽/ночь", beds: 2, icon: "Building2" },
       ],
+      trailMap: [
+        { name: "Зелёные", color: "#34D399", bgColor: "#0D2B1F", count: 7, lengthKm: "8 км" },
+        { name: "Синие", color: "#60A5FA", bgColor: "#0D1B2B", count: 10, lengthKm: "14 км" },
+        { name: "Красные", color: "#F87171", bgColor: "#2B0D0D", count: 8, lengthKm: "11 км" },
+      ],
+      webcams: [
+        { name: "Вершина Горного воздуха", location: "601 м", url: "#", preview: IMG_ROSA },
+        { name: "Ю-Сахалинск панорама", location: "50 м", url: "#", preview: IMG_SHER },
+      ],
+      skipasses: [
+        { name: "Дневной", price: "2 100 ₽", duration: "1 день", includes: "Все подъёмники" },
+        { name: "Многодневный 3 дня", price: "5 500 ₽", duration: "3 дня", includes: "Все подъёмники", popular: true },
+        { name: "Сезонный", price: "35 000 ₽", duration: "Нояб — Май", includes: "Полный доступ" },
+      ],
+      howToGet: [
+        { icon: "Plane", type: "Самолёт", from: "Москва (SVO)", duration: "8 ч 30 мин", price: "от 14 000 ₽", detail: "Аэропорт Южно-Сахалинск, трансфер 20 мин" },
+        { icon: "Car", type: "На автомобиле", from: "Южно-Сахалинск", duration: "20 мин", price: "бесплатно", detail: "Курорт находится прямо в черте города" },
+      ],
     },
   ],
 };
 
 type View = "regions" | "resorts" | "resort";
-type ResortTab = "info" | "excursions" | "rental";
+type ResortTab = "info" | "excursions" | "rental" | "trails" | "webcams" | "skipass" | "howto";
 
 function DifficultyBadge({ level }: { level: number }) {
   const labels = ["", "Зелёные", "Синие", "Красные", "Чёрные", "Внетрасс."];
@@ -702,11 +950,11 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Tabs */}
+            {/* Tabs row 1 */}
             <div className="mt-4 rounded-2xl p-1 flex gap-1" style={{ background: card, border: `1px solid ${border}` }}>
               {(["info", "excursions", "rental"] as ResortTab[]).map((tab) => {
-                const labels: Record<ResortTab, string> = { info: "О курорте", excursions: "Экскурсии", rental: "Жильё" };
-                const icons: Record<ResortTab, string> = { info: "Info", excursions: "Compass", rental: "Home" };
+                const labels: Record<string, string> = { info: "О курорте", excursions: "Экскурсии", rental: "Жильё" };
+                const icons: Record<string, string> = { info: "Info", excursions: "Compass", rental: "Home" };
                 const isActive = activeTab === tab;
                 return (
                   <button key={tab} onClick={() => setActiveTab(tab)}
@@ -714,6 +962,23 @@ export default function Index() {
                     style={{ background: isActive ? "linear-gradient(135deg, #1A6FA8, #4DB8FF)" : "transparent", color: isActive ? "#fff" : muted }}>
                     <Icon name={icons[tab]} size={13} />
                     {labels[tab]}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Tabs row 2 */}
+            <div className="mt-2 rounded-2xl p-1 flex gap-1" style={{ background: card, border: `1px solid ${border}` }}>
+              {(["trails", "webcams", "skipass", "howto"] as ResortTab[]).map((tab) => {
+                const labels: Record<string, string> = { trails: "Трассы", webcams: "Камеры", skipass: "Скипасс", howto: "Как добраться" };
+                const icons: Record<string, string> = { trails: "GitBranch", webcams: "Video", skipass: "Ticket", howto: "Navigation" };
+                const isActive = activeTab === tab;
+                return (
+                  <button key={tab} onClick={() => setActiveTab(tab)}
+                    className="flex-1 py-2.5 px-1 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-1"
+                    style={{ background: isActive ? "linear-gradient(135deg, #1A6FA8, #4DB8FF)" : "transparent", color: isActive ? "#fff" : muted }}>
+                    <Icon name={icons[tab]} size={12} />
+                    <span className="truncate">{labels[tab]}</span>
                   </button>
                 );
               })}
@@ -794,6 +1059,162 @@ export default function Index() {
                 <button className="w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]"
                   style={{ background: "linear-gradient(135deg, #0F5FA0 0%, #4DB8FF 100%)", color: "#fff", boxShadow: "0 4px 20px rgba(77,184,255,0.25)" }}>
                   Найти жильё
+                </button>
+              </div>
+            )}
+
+            {/* Trail Map */}
+            {activeTab === "trails" && (
+              <div className="mt-4 animate-fade-in space-y-3">
+                {/* Visual trail map placeholder */}
+                <div className="rounded-2xl overflow-hidden relative" style={{ background: "linear-gradient(160deg, #0A2040 0%, #0D3A60 100%)", border: `1px solid ${border}`, height: 180 }}>
+                  <div className="absolute inset-0 flex items-center justify-center flex-col gap-2">
+                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                      <span className="text-xs font-bold" style={{ color: accent }}>{selectedResort.name}</span>
+                      <span className="text-xs" style={{ color: muted }}>{selectedResort.altitude}</span>
+                    </div>
+                    {/* Схематичные трассы */}
+                    <svg width="240" height="100" viewBox="0 0 240 100" className="opacity-70">
+                      <path d="M120,5 Q90,30 70,55 Q55,70 40,90" stroke="#34D399" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                      <path d="M120,5 Q115,35 105,60 Q95,75 80,90" stroke="#60A5FA" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                      <path d="M120,5 Q130,30 140,55 Q148,72 155,90" stroke="#60A5FA" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                      <path d="M120,5 Q145,25 165,50 Q178,65 190,90" stroke="#F87171" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                      <path d="M120,5 Q155,20 185,40 Q205,55 215,90" stroke="#CBD5E1" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeDasharray="6,3"/>
+                      <circle cx="120" cy="5" r="5" fill="#FFDD2D"/>
+                      <text x="125" y="9" fill="#FFDD2D" fontSize="8" fontWeight="bold">{selectedResort.altitude.split('–')[1]}</text>
+                    </svg>
+                    <p className="text-xs" style={{ color: muted }}>Схема трасс курорта</p>
+                  </div>
+                </div>
+
+                {/* Trail zones */}
+                <div className="space-y-2">
+                  {selectedResort.trailMap.map((zone: TrailZone, i: number) => (
+                    <div key={i} className="rounded-xl p-3 flex items-center gap-3" style={{ background: card, border: `1px solid ${border}` }}>
+                      <div className="w-3 h-10 rounded-full flex-shrink-0" style={{ background: zone.color }} />
+                      <div className="flex-1">
+                        <p className="font-semibold text-sm" style={{ color: fg }}>{zone.name} трассы</p>
+                        <p className="text-xs mt-0.5" style={{ color: muted }}>{zone.lengthKm} суммарно</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xl font-black" style={{ color: zone.color }}>{zone.count}</p>
+                        <p className="text-xs" style={{ color: muted }}>трасс</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="rounded-xl p-3 flex items-center justify-between" style={{ background: card, border: `1px solid ${border}` }}>
+                  <span className="text-sm font-bold" style={{ color: fg }}>Итого трасс</span>
+                  <span className="text-xl font-black" style={{ color: accent }}>{selectedResort.runs}</span>
+                </div>
+                <button className="w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]"
+                  style={{ background: "linear-gradient(135deg, #0F5FA0 0%, #4DB8FF 100%)", color: "#fff", boxShadow: "0 4px 20px rgba(77,184,255,0.25)" }}>
+                  Скачать карту трасс PDF
+                </button>
+              </div>
+            )}
+
+            {/* Webcams */}
+            {activeTab === "webcams" && (
+              <div className="mt-4 animate-fade-in space-y-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-xs font-semibold" style={{ color: muted }}>ПРЯМОЙ ЭФИР</span>
+                </div>
+                {selectedResort.webcams.map((cam: Webcam, i: number) => (
+                  <div key={i} className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${border}` }}>
+                    <div className="relative h-36 overflow-hidden">
+                      <img src={cam.preview} alt={cam.name} className="w-full h-full object-cover" style={{ filter: "brightness(0.7)" }} />
+                      <div className="absolute inset-0 flex flex-col justify-between p-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1.5 px-2 py-1 rounded-full" style={{ background: "rgba(220,38,38,0.85)" }}>
+                            <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                            <span className="text-white text-xs font-bold">LIVE</span>
+                          </div>
+                          <span className="text-xs px-2 py-1 rounded-full" style={{ background: "rgba(0,0,0,0.6)", color: "#fff" }}>{cam.location}</span>
+                        </div>
+                        <div>
+                          <p className="text-white font-bold text-sm">{cam.name}</p>
+                          <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.6)" }}>{selectedResort.name}</p>
+                        </div>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: "rgba(77,184,255,0.25)", border: "2px solid rgba(77,184,255,0.5)" }}>
+                          <Icon name="Play" size={20} style={{ color: "#fff" }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <p className="text-xs text-center" style={{ color: muted }}>Камеры обновляются каждые 30 секунд</p>
+              </div>
+            )}
+
+            {/* Skipass */}
+            {activeTab === "skipass" && (
+              <div className="mt-4 animate-fade-in space-y-3">
+                {selectedResort.skipasses.map((sp: Skipass, i: number) => (
+                  <div key={i} className="rounded-2xl p-4 relative overflow-hidden"
+                    style={{ background: sp.popular ? "linear-gradient(135deg, #0F3D6A 0%, #174E87 100%)" : card, border: sp.popular ? "1px solid rgba(77,184,255,0.4)" : `1px solid ${border}` }}>
+                    {sp.popular && (
+                      <div className="absolute top-3 right-3">
+                        <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background: accent, color: "#0A0F1E" }}>
+                          Популярный
+                        </span>
+                      </div>
+                    )}
+                    {sp.popular && (
+                      <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at top left, rgba(77,184,255,0.6), transparent 60%)" }} />
+                    )}
+                    <div className="relative z-10">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <p className="font-bold" style={{ color: fg }}>{sp.name}</p>
+                          <p className="text-xs mt-0.5" style={{ color: muted }}>{sp.duration}</p>
+                        </div>
+                        <p className="text-xl font-black" style={{ color: sp.popular ? accent : fg }}>{sp.price}</p>
+                      </div>
+                      <p className="text-xs" style={{ color: muted }}>{sp.includes}</p>
+                      <button className="mt-3 w-full py-2.5 rounded-xl text-sm font-bold transition-all active:scale-[0.98]"
+                        style={{ background: sp.popular ? "linear-gradient(135deg, #0F5FA0, #4DB8FF)" : "rgba(77,184,255,0.1)", color: sp.popular ? "#fff" : accent, boxShadow: sp.popular ? "0 4px 16px rgba(77,184,255,0.25)" : "none" }}>
+                        Купить скипасс
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* How To Get */}
+            {activeTab === "howto" && (
+              <div className="mt-4 animate-fade-in space-y-3">
+                {selectedResort.howToGet.map((route: HowToGet, i: number) => (
+                  <div key={i} className="rounded-2xl p-4" style={{ background: card, border: `1px solid ${border}` }}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(77,184,255,0.1)" }}>
+                        <Icon name={route.icon} size={18} style={{ color: accent }} />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-sm" style={{ color: fg }}>{route.type}</p>
+                        <p className="text-xs" style={{ color: muted }}>из: {route.from}</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 mb-3">
+                      <div className="rounded-xl p-2.5" style={{ background: "rgba(77,184,255,0.06)", border: `1px solid ${border}` }}>
+                        <p className="text-xs" style={{ color: muted }}>Время в пути</p>
+                        <p className="text-sm font-bold mt-0.5" style={{ color: fg }}>{route.duration}</p>
+                      </div>
+                      <div className="rounded-xl p-2.5" style={{ background: "rgba(77,184,255,0.06)", border: `1px solid ${border}` }}>
+                        <p className="text-xs" style={{ color: muted }}>Стоимость</p>
+                        <p className="text-sm font-bold mt-0.5" style={{ color: accent }}>{route.price}</p>
+                      </div>
+                    </div>
+                    <p className="text-xs leading-relaxed" style={{ color: muted }}>{route.detail}</p>
+                  </div>
+                ))}
+                <button className="w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]"
+                  style={{ background: "linear-gradient(135deg, #0F5FA0 0%, #4DB8FF 100%)", color: "#fff", boxShadow: "0 4px 20px rgba(77,184,255,0.25)" }}>
+                  Построить маршрут
                 </button>
               </div>
             )}
