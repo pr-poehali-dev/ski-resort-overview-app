@@ -6,57 +6,56 @@
   :root {
     --background: 220 16% 8%;
     --foreground: 0 0% 96%;
-
     --card: 220 14% 11%;
     --card-foreground: 0 0% 96%;
-
     --popover: 220 14% 11%;
     --popover-foreground: 0 0% 96%;
-
-    --primary: 48 100% 57%;
-    --primary-foreground: 220 16% 8%;
-
-    --secondary: 220 12% 16%;
+    --primary: 205 90% 60%;
+    --primary-foreground: 220 40% 8%;
+    --secondary: 215 25% 14%;
     --secondary-foreground: 0 0% 96%;
-
-    --muted: 220 12% 16%;
-    --muted-foreground: 220 10% 55%;
-
-    --accent: 48 100% 57%;
-    --accent-foreground: 220 16% 8%;
-
+    --muted: 215 25% 14%;
+    --muted-foreground: 215 15% 52%;
+    --accent: 205 90% 60%;
+    --accent-foreground: 220 40% 8%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 96%;
+    --border: 215 22% 16%;
+    --input: 215 22% 16%;
+    --ring: 205 90% 60%;
+    --radius: 1.1rem;
 
-    --border: 220 12% 18%;
-    --input: 220 12% 18%;
-    --ring: 48 100% 57%;
-
-    --radius: 1rem;
-
+    /* ── Winter Dark (default) ── */
+    --tbank-dark: #0a0f1e;
+    --tbank-card: #0f1628;
+    --tbank-card2: #141c32;
+    --tbank-border: #1e2d4a;
+    --tbank-muted: #5b7295;
+    --tbank-fg: #e8f0ff;
+    --tbank-fg2: rgba(210, 225, 255, 0.65);
+    --tbank-shadow: rgba(0, 10, 40, 0.6);
+    --tbank-accent: #4db8ff;
+    --tbank-accent2: #7dd3fc;
     --tbank-yellow: #ffdd2d;
-    --tbank-dark: #121418;
-    --tbank-card: #1a1d23;
-    --tbank-card2: #1e2128;
-    --tbank-border: #2a2d35;
-    --tbank-muted: #6b7280;
-    --tbank-fg: #f0f2f5;
-    --tbank-fg2: rgba(240, 242, 245, 0.7);
-    --tbank-shadow: rgba(0, 0, 0, 0.4);
+    --tbank-glow: rgba(77, 184, 255, 0.12);
   }
 
   [data-theme="light"] {
-    --tbank-dark: #f4f6fa;
+    /* ── Winter Light ── */
+    --tbank-dark: #eef4ff;
     --tbank-card: #ffffff;
-    --tbank-card2: #eef1f7;
-    --tbank-border: #dde1ea;
-    --tbank-muted: #8a92a6;
-    --tbank-fg: #14181f;
-    --tbank-fg2: rgba(20, 24, 31, 0.65);
-    --tbank-shadow: rgba(0, 0, 0, 0.1);
-    --background: 220 20% 96%;
-    --foreground: 220 20% 10%;
-    --border: 220 15% 87%;
+    --tbank-card2: #e0ecff;
+    --tbank-border: #c5d8f0;
+    --tbank-muted: #7a9bbf;
+    --tbank-fg: #0a1933;
+    --tbank-fg2: rgba(10, 25, 51, 0.6);
+    --tbank-shadow: rgba(10, 25, 80, 0.12);
+    --tbank-accent: #1a8fd8;
+    --tbank-accent2: #0c6faf;
+    --tbank-glow: rgba(26, 143, 216, 0.08);
+    --background: 214 60% 95%;
+    --foreground: 214 60% 8%;
+    --border: 214 40% 82%;
   }
 }
 
@@ -66,10 +65,69 @@
   }
 
   body {
-    @apply bg-background text-foreground;
     font-family: "Golos Text", sans-serif;
     background-color: var(--tbank-dark);
-    transition: background-color 0.3s ease;
+    color: var(--tbank-fg);
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Снежный паттерн на фоне */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(
+        1px 1px at 15% 18%,
+        rgba(255, 255, 255, 0.35) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1.5px 1.5px at 72% 8%,
+        rgba(255, 255, 255, 0.25) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 40% 55%,
+        rgba(255, 255, 255, 0.2) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 88% 33%,
+        rgba(255, 255, 255, 0.3) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1.5px 1.5px at 25% 80%,
+        rgba(255, 255, 255, 0.15) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 60% 70%,
+        rgba(255, 255, 255, 0.25) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        2px 2px at 5% 45%,
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1px 1px at 95% 60%,
+        rgba(255, 255, 255, 0.2) 0%,
+        transparent 100%
+      );
+    opacity: 0.7;
+  }
+
+  [data-theme="light"] body::before {
+    opacity: 0.3;
   }
 
   ::-webkit-scrollbar {
@@ -101,10 +159,35 @@
   }
   .hover-lift:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    box-shadow:
+      0 8px 40px var(--tbank-shadow),
+      0 0 0 1px var(--tbank-border);
   }
-  .glow-yellow {
-    box-shadow: 0 0 20px rgba(255, 221, 45, 0.15);
+  .ice-glow {
+    box-shadow:
+      0 0 24px var(--tbank-glow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  .frost-card {
+    background: var(--tbank-card);
+    border: 1px solid var(--tbank-border);
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+  }
+  .frost-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(77, 184, 255, 0.3),
+      transparent
+    );
   }
 }
 
@@ -116,7 +199,6 @@
     opacity: 1;
   }
 }
-
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -127,7 +209,6 @@
     transform: translateY(0);
   }
 }
-
 @keyframes scaleIn {
   from {
     opacity: 0;
@@ -138,7 +219,22 @@
     transform: scale(1);
   }
 }
-
+@keyframes snowfall {
+  0% {
+    transform: translateY(-10px) translateX(0px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh) translateX(30px);
+    opacity: 0;
+  }
+}
 @keyframes scrollAds {
   0% {
     transform: translateX(0);
@@ -147,10 +243,30 @@
     transform: translateX(-50%);
   }
 }
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
 
 .ads-scroll {
   animation: scrollAds 24s linear infinite;
 }
 .ads-scroll:hover {
   animation-play-state: paused;
+}
+
+/* Snowflake particles */
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 10px;
+  animation: snowfall linear infinite;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
 }

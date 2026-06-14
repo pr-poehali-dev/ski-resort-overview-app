@@ -287,7 +287,7 @@ function DifficultyBadge({ level }: { level: number }) {
 function StarRating({ rating }: { rating: number }) {
   return (
     <span className="flex items-center gap-1">
-      <span style={{ color: "#FFDD2D" }} className="text-sm leading-none">★</span>
+      <span style={{ color: "var(--tbank-accent)" }} className="text-sm leading-none">★</span>
       <span className="text-sm font-bold" style={{ color: "var(--tbank-fg)" }}>{rating}</span>
     </span>
   );
@@ -298,9 +298,40 @@ function PopularityDots({ level }: { level: number }) {
     <div className="flex gap-0.5 items-center">
       {[1, 2, 3, 4, 5].map((i) => (
         <div key={i} className="w-2 h-2 rounded-full"
-          style={{ background: i <= level ? "#FFDD2D" : "var(--tbank-border)" }} />
+          style={{ background: i <= level ? "var(--tbank-accent)" : "var(--tbank-border)" }} />
       ))}
     </div>
+  );
+}
+
+function Snowflakes() {
+  const flakes = [
+    { left: "8%",  delay: "0s",   dur: "8s",  size: "10px", opacity: 0.6 },
+    { left: "20%", delay: "1.5s", dur: "11s", size: "8px",  opacity: 0.4 },
+    { left: "35%", delay: "3s",   dur: "9s",  size: "12px", opacity: 0.5 },
+    { left: "50%", delay: "0.5s", dur: "13s", size: "7px",  opacity: 0.35 },
+    { left: "65%", delay: "2s",   dur: "10s", size: "9px",  opacity: 0.5 },
+    { left: "78%", delay: "4s",   dur: "7s",  size: "11px", opacity: 0.45 },
+    { left: "90%", delay: "1s",   dur: "12s", size: "8px",  opacity: 0.4 },
+  ];
+  return (
+    <>
+      {flakes.map((f, i) => (
+        <div
+          key={i}
+          className="snowflake select-none pointer-events-none"
+          style={{
+            left: f.left,
+            fontSize: f.size,
+            opacity: f.opacity,
+            animationDuration: f.dur,
+            animationDelay: f.delay,
+          }}
+        >
+          ❄
+        </div>
+      ))}
+    </>
   );
 }
 
@@ -312,11 +343,13 @@ function AdsBanner() {
         {doubled.map((ad, i) => (
           <div
             key={i}
-            className="flex-shrink-0 w-44 h-24 rounded-2xl p-3 flex flex-col justify-between cursor-pointer transition-all active:scale-95"
+            className="flex-shrink-0 w-44 h-24 rounded-2xl p-3 flex flex-col justify-between cursor-pointer transition-all active:scale-95 relative overflow-hidden"
             style={{ background: ad.color }}
           >
-            <span className="text-2xl">{ad.emoji}</span>
-            <div>
+            <div className="absolute inset-0 opacity-20"
+              style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 60%)" }} />
+            <span className="text-2xl relative z-10">{ad.emoji}</span>
+            <div className="relative z-10">
               <p className="text-xs font-black leading-tight" style={{ color: ad.textColor }}>{ad.title}</p>
               <p className="text-xs mt-0.5 leading-tight opacity-75" style={{ color: ad.textColor }}>{ad.sub}</p>
             </div>
@@ -376,24 +409,26 @@ export default function Index() {
   const card2 = "var(--tbank-card2)";
   const border = "var(--tbank-border)";
   const muted = "var(--tbank-muted)";
+  const accent = "var(--tbank-accent)";
 
   return (
-    <div className="min-h-screen font-['Golos_Text',sans-serif]" style={{ background: dark, color: fg }}>
+    <div className="min-h-screen font-['Golos_Text',sans-serif] relative" style={{ background: dark, color: fg }}>
+      <Snowflakes />
 
       {/* Header */}
-      <div className="sticky top-0 z-50" style={{ background: dark, borderBottom: `1px solid ${border}` }}>
-        <div className="max-w-md mx-auto px-4 py-4">
+      <div className="sticky top-0 z-50" style={{ background: `${dark}E8`, backdropFilter: "blur(16px)", borderBottom: `1px solid ${border}` }}>
+        <div className="max-w-md mx-auto px-4 py-3.5">
           <div className="flex items-center gap-3">
             {view !== "regions" && (
-              <button onClick={goBack} className="w-9 h-9 rounded-full flex items-center justify-center transition-all active:scale-95" style={{ background: card2 }}>
+              <button onClick={goBack} className="w-9 h-9 rounded-full flex items-center justify-center transition-all active:scale-95" style={{ background: card2, border: `1px solid ${border}` }}>
                 <Icon name="ChevronLeft" size={20} style={{ color: fg }} />
               </button>
             )}
             <div className="flex-1">
               {view === "regions" && (
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">🎿</span>
-                  <span className="text-lg font-bold" style={{ color: fg }}>СкиРоссия</span>
+                  <span className="text-lg">❄️</span>
+                  <span className="text-lg font-black tracking-tight" style={{ color: fg }}>СкиРоссия</span>
                 </div>
               )}
               {view === "resorts" && (
@@ -419,11 +454,11 @@ export default function Index() {
               style={{ background: card2, border: `1px solid ${border}` }}
               title={isDark ? "Светлая тема" : "Тёмная тема"}
             >
-              <Icon name={isDark ? "Sun" : "Moon"} size={17} style={{ color: isDark ? "#FFDD2D" : muted }} />
+              <Icon name={isDark ? "Sun" : "Moon"} size={17} style={{ color: accent }} />
             </button>
 
             {view === "regions" && (
-              <button className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: card2 }}>
+              <button className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: card2, border: `1px solid ${border}` }}>
                 <Icon name="Bell" size={18} style={{ color: fg }} />
               </button>
             )}
@@ -437,17 +472,52 @@ export default function Index() {
         {view === "regions" && (
           <div className="animate-slide-up">
             {/* Hero */}
-            <div className="mt-4 rounded-2xl p-5 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #FFDD2D 0%, #FFB800 100%)" }}>
-              <div className="relative z-10">
-                <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(30,25,0,0.55)" }}>Сезон 2024–2025</p>
-                <h2 className="text-2xl font-black mt-1 leading-tight" style={{ color: "#1A1400" }}>
-                  Горнолыжные<br />курорты России
-                </h2>
-                <p className="text-sm mt-2 font-medium" style={{ color: "rgba(30,25,0,0.6)" }}>
-                  12 курортов · 7 регионов
-                </p>
+            <div
+              className="mt-4 rounded-2xl relative overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, #0A2040 0%, #0D3060 50%, #0F4080 100%)",
+                border: "1px solid rgba(77,184,255,0.2)",
+                boxShadow: "0 0 40px rgba(77,184,255,0.1), inset 0 1px 0 rgba(255,255,255,0.08)",
+              }}
+            >
+              {/* Ice crystal overlay */}
+              <div className="absolute inset-0 opacity-10"
+                style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(77,184,255,0.6) 0%, transparent 60%)" }} />
+              <div className="absolute top-0 right-0 bottom-0 w-1/2 flex items-center justify-center text-8xl select-none"
+                style={{ opacity: 0.15, transform: "rotate(-15deg) scale(1.2)" }}>
+                ❄️
               </div>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-6xl opacity-25 select-none">⛷️</div>
+              <div className="absolute bottom-0 left-0 right-0 h-px"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(77,184,255,0.5), transparent)" }} />
+              <div className="relative z-10 p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--tbank-accent)" }} />
+                  <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--tbank-accent)" }}>
+                    Сезон 2024–2025 · Открыт
+                  </p>
+                </div>
+                <h2 className="text-2xl font-black leading-tight text-white">
+                  Горнолыжные<br />
+                  <span style={{ color: "var(--tbank-accent)" }}>курорты</span> России
+                </h2>
+                <p className="text-sm mt-2 font-medium" style={{ color: "rgba(180,210,255,0.7)" }}>
+                  12 курортов · 7 регионов · от −5°C до −25°C
+                </p>
+                <div className="mt-3 flex gap-2">
+                  <span className="text-xs px-2.5 py-1 rounded-full font-semibold"
+                    style={{ background: "rgba(77,184,255,0.15)", color: "var(--tbank-accent)", border: "1px solid rgba(77,184,255,0.25)" }}>
+                    🏔 Кавказ
+                  </span>
+                  <span className="text-xs px-2.5 py-1 rounded-full font-semibold"
+                    style={{ background: "rgba(77,184,255,0.15)", color: "var(--tbank-accent)", border: "1px solid rgba(77,184,255,0.25)" }}>
+                    🌲 Сибирь
+                  </span>
+                  <span className="text-xs px-2.5 py-1 rounded-full font-semibold"
+                    style={{ background: "rgba(77,184,255,0.15)", color: "var(--tbank-accent)", border: "1px solid rgba(77,184,255,0.25)" }}>
+                    ❄ СЗФО
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Ads scroll */}
@@ -472,8 +542,8 @@ export default function Index() {
                 { label: "Трасс", value: "340+", icon: "GitBranch" },
                 { label: "Подъёмников", value: "100+", icon: "ArrowUp" },
               ].map((stat) => (
-                <div key={stat.label} className="rounded-xl p-3 text-center" style={{ background: card, border: `1px solid ${border}` }}>
-                  <Icon name={stat.icon} size={16} className="mx-auto mb-1.5" style={{ color: "#FFDD2D" }} />
+                <div key={stat.label} className="rounded-xl p-3 text-center ice-glow" style={{ background: card, border: `1px solid ${border}` }}>
+                  <Icon name={stat.icon} size={16} className="mx-auto mb-1.5" style={{ color: accent }} />
                   <p className="text-lg font-black" style={{ color: fg }}>{stat.value}</p>
                   <p className="text-xs mt-0.5" style={{ color: muted }}>{stat.label}</p>
                 </div>
@@ -500,7 +570,7 @@ export default function Index() {
                     </div>
                     <div className="flex flex-col items-end gap-2 flex-shrink-0">
                       <span className="text-xs font-bold px-2 py-0.5 rounded-full whitespace-nowrap"
-                        style={{ background: "rgba(255,221,45,0.12)", color: "#FFDD2D" }}>
+                        style={{ background: "rgba(77,184,255,0.12)", color: accent }}>
                         {region.resortCount} курорта
                       </span>
                       <Icon name="ChevronRight" size={16} style={{ color: muted }} />
@@ -562,7 +632,7 @@ export default function Index() {
                       </div>
                     </div>
                     <div className="w-full py-2.5 rounded-xl text-sm font-bold text-center"
-                      style={{ background: "#FFDD2D", color: "#1A1400" }}>
+                      style={{ background: "linear-gradient(135deg, #1A6FA8 0%, #4DB8FF 100%)", color: "#fff" }}>
                       Подробнее →
                     </div>
                   </div>
@@ -641,7 +711,7 @@ export default function Index() {
                 return (
                   <button key={tab} onClick={() => setActiveTab(tab)}
                     className="flex-1 py-2.5 px-2 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-1.5"
-                    style={{ background: isActive ? "#FFDD2D" : "transparent", color: isActive ? "#1A1400" : muted }}>
+                    style={{ background: isActive ? "linear-gradient(135deg, #1A6FA8, #4DB8FF)" : "transparent", color: isActive ? "#fff" : muted }}>
                     <Icon name={icons[tab]} size={13} />
                     {labels[tab]}
                   </button>
@@ -658,7 +728,7 @@ export default function Index() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="rounded-2xl p-4" style={{ background: card, border: `1px solid ${border}` }}>
-                    <Icon name="TrendingUp" size={20} style={{ color: "#FFDD2D" }} />
+                    <Icon name="TrendingUp" size={20} style={{ color: accent }} />
                     <p className="font-bold mt-2 text-sm" style={{ color: fg }}>{selectedResort.altitude}</p>
                     <p className="text-xs mt-0.5" style={{ color: muted }}>Перепад высот</p>
                   </div>
@@ -669,7 +739,7 @@ export default function Index() {
                   </div>
                 </div>
                 <button className="w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]"
-                  style={{ background: "#FFDD2D", color: "#1A1400" }}>
+                  style={{ background: "linear-gradient(135deg, #0F5FA0 0%, #4DB8FF 100%)", color: "#fff", boxShadow: "0 4px 20px rgba(77,184,255,0.25)" }}>
                   Забронировать поездку
                 </button>
               </div>
@@ -680,8 +750,8 @@ export default function Index() {
               <div className="mt-4 space-y-3 animate-fade-in">
                 {selectedResort.excursions.map((exc: Excursion, i: number) => (
                   <div key={i} className="rounded-2xl p-4 flex items-center gap-4" style={{ background: card, border: `1px solid ${border}` }}>
-                    <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,221,45,0.1)" }}>
-                      <Icon name={exc.icon} size={20} style={{ color: "#FFDD2D" }} />
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(77,184,255,0.1)" }}>
+                      <Icon name={exc.icon} size={20} style={{ color: accent }} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm leading-tight" style={{ color: fg }}>{exc.name}</p>
@@ -696,7 +766,7 @@ export default function Index() {
                   </div>
                 ))}
                 <button className="w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]"
-                  style={{ background: "#FFDD2D", color: "#1A1400" }}>
+                  style={{ background: "linear-gradient(135deg, #0F5FA0 0%, #4DB8FF 100%)", color: "#fff", boxShadow: "0 4px 20px rgba(77,184,255,0.25)" }}>
                   Все экскурсии
                 </button>
               </div>
@@ -707,8 +777,8 @@ export default function Index() {
               <div className="mt-4 space-y-3 animate-fade-in">
                 {selectedResort.rentals.map((rent: Rental, i: number) => (
                   <div key={i} className="rounded-2xl p-4 flex items-center gap-4" style={{ background: card, border: `1px solid ${border}` }}>
-                    <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(96,165,250,0.1)" }}>
-                      <Icon name={rent.icon} size={20} style={{ color: "#60A5FA" }} />
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(77,184,255,0.08)" }}>
+                      <Icon name={rent.icon} size={20} style={{ color: accent }} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm leading-tight" style={{ color: fg }}>{rent.name}</p>
@@ -722,7 +792,7 @@ export default function Index() {
                   </div>
                 ))}
                 <button className="w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]"
-                  style={{ background: "#FFDD2D", color: "#1A1400" }}>
+                  style={{ background: "linear-gradient(135deg, #0F5FA0 0%, #4DB8FF 100%)", color: "#fff", boxShadow: "0 4px 20px rgba(77,184,255,0.25)" }}>
                   Найти жильё
                 </button>
               </div>
@@ -732,7 +802,7 @@ export default function Index() {
       </div>
 
       {/* Bottom nav */}
-      <div className="fixed bottom-0 left-0 right-0 z-50" style={{ background: dark, borderTop: `1px solid ${border}` }}>
+      <div className="fixed bottom-0 left-0 right-0 z-50" style={{ background: `${dark}F0`, backdropFilter: "blur(16px)", borderTop: `1px solid ${border}` }}>
         <div className="max-w-md mx-auto px-4 py-3">
           <div className="grid grid-cols-4 gap-1">
             {[
@@ -742,8 +812,8 @@ export default function Index() {
               { icon: "User", label: "Профиль", active: false },
             ].map((item) => (
               <button key={item.label} className="flex flex-col items-center gap-1 py-1 transition-all active:scale-95">
-                <Icon name={item.icon} size={22} style={{ color: item.active ? "#FFDD2D" : muted }} />
-                <span className="text-xs font-medium" style={{ color: item.active ? "#FFDD2D" : muted }}>{item.label}</span>
+                <Icon name={item.icon} size={22} style={{ color: item.active ? accent : muted }} />
+                <span className="text-xs font-medium" style={{ color: item.active ? accent : muted }}>{item.label}</span>
               </button>
             ))}
           </div>
