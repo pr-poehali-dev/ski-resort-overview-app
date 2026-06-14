@@ -40,6 +40,23 @@
     --tbank-card2: #1e2128;
     --tbank-border: #2a2d35;
     --tbank-muted: #6b7280;
+    --tbank-fg: #f0f2f5;
+    --tbank-fg2: rgba(240, 242, 245, 0.7);
+    --tbank-shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  [data-theme="light"] {
+    --tbank-dark: #f4f6fa;
+    --tbank-card: #ffffff;
+    --tbank-card2: #eef1f7;
+    --tbank-border: #dde1ea;
+    --tbank-muted: #8a92a6;
+    --tbank-fg: #14181f;
+    --tbank-fg2: rgba(20, 24, 31, 0.65);
+    --tbank-shadow: rgba(0, 0, 0, 0.1);
+    --background: 220 20% 96%;
+    --foreground: 220 20% 10%;
+    --border: 220 15% 87%;
   }
 }
 
@@ -52,6 +69,7 @@
     @apply bg-background text-foreground;
     font-family: "Golos Text", sans-serif;
     background-color: var(--tbank-dark);
+    transition: background-color 0.3s ease;
   }
 
   ::-webkit-scrollbar {
@@ -119,4 +137,20 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes scrollAds {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ads-scroll {
+  animation: scrollAds 24s linear infinite;
+}
+.ads-scroll:hover {
+  animation-play-state: paused;
 }
